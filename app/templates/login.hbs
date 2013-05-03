@@ -1,0 +1,14 @@
+<form class="form-signin">
+    
+    <h2 class="form-signin-heading">Please sign in</h2>
+
+    <p class="text-error">{{errorMessage}}</p>
+
+    {{view Ember.TextField valueBinding="username" type="text" class="input-block-level" placeholder="Email address"}}
+    {{view Ember.TextField valueBinding="password" type="password" class="input-block-level" placeholder="Password"}}
+    <!-- <label class="checkbox">
+        <input type="checkbox" value="remember-me"> Remember me
+    </label> -->
+    <button class="btn btn-large btn-primary" {{action 'login'}}>Sign in</button>
+
+</form>

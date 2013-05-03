@@ -1,0 +1,18 @@
+<form class="form-signin">
+    
+    <h2 class="form-signin-heading">Log a swim</h2>
+    
+    <p {{bindAttr class="messageClass"}}>{{message}}</p>
+
+    <p>you swam {{lengthSwum}} meters ...</p>
+    {{view Ember.TextField type="number" valueBinding="lengthSwum" class="input-block-level" placeholder="enter total length swum in meters"}}
+
+    <p>... in {{timeTaken}} minutes.</p>
+    {{view Ember.TextField type="number" valueBinding="timeTaken" class="input-block-level" placeholder="enter time in minutes"}}
+
+    <p>... on the {{day}} {{month}} {{year}}</p>
+    {{view Ember.TextField type="date" valueBinding="swimDate" class="input-block-level"}}
+    
+    <button class="btn btn-large btn-primary" {{action 'logSwim'}}>Log Swim</button>
+
+</form>
