@@ -5,10 +5,10 @@
     <p {{bindAttr class="messageClass"}}>{{message}}</p>
 
     <p>you swam {{lengthSwum}} meters ...</p>
-    {{view Ember.TextField type="number" valueBinding="lengthSwum" class="input-block-level" placeholder="enter total length swum in meters"}}
+    {{view Ember.TextField type="number" min="0" valueBinding="lengthSwum" class="input-block-level" placeholder="enter total length swum in meters"}}
 
     <p>... in {{timeTaken}} minutes.</p>
-    {{view Ember.TextField type="number" valueBinding="timeTaken" class="input-block-level" placeholder="enter time in minutes"}}
+    {{view Ember.TextField type="number" min="0" valueBinding="timeTaken" class="input-block-level" placeholder="enter time in minutes"}}
 
     <p>... on the {{day}} {{month}} {{year}}</p>
     {{view Ember.TextField type="date" valueBinding="swimDate" class="input-block-level"}}

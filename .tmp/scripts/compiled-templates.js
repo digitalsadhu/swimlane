@@ -30,9 +30,10 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   hashTypes = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "lengthSwum", {hash:{},contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
   data.buffer.push(" meters ...</p>\n    ");
-  hashTypes = {'type': "STRING",'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"};
+  hashTypes = {'type': "STRING",'min': "STRING",'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'type': ("number"),
+    'min': ("0"),
     'valueBinding': ("lengthSwum"),
     'class': ("input-block-level"),
     'placeholder': ("enter total length swum in meters")
@@ -41,9 +42,10 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   hashTypes = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "timeTaken", {hash:{},contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
   data.buffer.push(" minutes.</p>\n    ");
-  hashTypes = {'type': "STRING",'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"};
+  hashTypes = {'type': "STRING",'min': "STRING",'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'type': ("number"),
+    'min': ("0"),
     'valueBinding': ("timeTaken"),
     'class': ("input-block-level"),
     'placeholder': ("enter time in minutes")
