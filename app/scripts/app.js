@@ -2,8 +2,8 @@
 
 (function (window) {
 
-    var user = 'mads';
-    var pass = 'swimmer';
+    var user = 'admin';
+    var pass = 'Swim33lotsoflanes!!!';
     var loggedIn = false;
 
     var App = window.App = Ember.Application.create();
@@ -38,6 +38,11 @@
                 var root = this.rootForType(type);
                 var roots = this.pluralize(root);
 
+                // console.log(roots);
+                // console.log(json);
+                // console.log(json.entries);
+
+
                 //custom transform returned api data
                 var data = [];
                 var i;
@@ -49,11 +54,16 @@
                 }
                 json = {};
                 json[root] = data;
-                console.log(json);
+                // console.log(json);
                 //////////////////////////////
 
                 formattedJson = {};
-                formattedJson[roots] = json.entries;
+                // formattedJson[roots] = json.entries;
+                
+                formattedJson[roots] = json[root];
+
+                // console.log(formattedJson);
+
                 delete formattedJson.pagination;
                 this._super(loader, formattedJson, type, records);
             },
@@ -111,7 +121,7 @@
     App.IndexRoute = Ember.Route.extend({
         redirect: function() {
             if (loggedIn === false) {
-               //this.transitionTo('login');
+               // this.transitionTo('login');
             }
         }
     });
@@ -131,6 +141,14 @@
         'message': '',
         'messageClass': 'text-error',
 
+        swims: [],
+
+        init: function() {
+            // console.log(App.Store.findAll(App.Swim));
+            // console.log(App.Swim.find());
+            this.set('swims', App.Swim.find());
+        },
+
         //triggered when the user clicks the login button
         logSwim: function () {
             //perform validation here
@@ -145,6 +163,14 @@
                     date: moment(this.get('swimDate'), "YYYY-MM-DD").toDate()
                 });
 
+                swim.on('isLoaded', function () {
+                    console.log('is loaded');
+                });
+
+                swim.on('isValid', function () {
+                    console.log('is valid');
+                });
+
                 //persist
                 swim.get('transaction').commit();
 
@@ -152,6 +178,8 @@
                 this.set('lengthSwum', '');
                 this.set('timeTaken', '');
                 this.set('swimDate', '');
+
+                this.set('swims', App.Swim.find());
 
                 //provide a message to say that the record was saved
                 this.set('messageClass', 'text-success');
@@ -188,6 +216,10 @@
         .property('swimDate')
 
 
+    });
+
+    Ember.Handlebars.registerBoundHelper('date', function (date) {
+        return moment(date).format('Mo MMM YYYY');
     });
 
 })(this);

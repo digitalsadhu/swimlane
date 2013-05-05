@@ -1,18 +1,24 @@
 <form class="form-signin">
     
-    <h2 class="form-signin-heading">Log a swim</h2>
-    
-    <p {{bindAttr class="messageClass"}}>{{message}}</p>
-
-    <p>you swam {{lengthSwum}} meters ...</p>
-    {{view Ember.TextField type="number" min="0" valueBinding="lengthSwum" class="input-block-level" placeholder="enter total length swum in meters"}}
-
-    <p>... in {{timeTaken}} minutes.</p>
-    {{view Ember.TextField type="number" min="0" valueBinding="timeTaken" class="input-block-level" placeholder="enter time in minutes"}}
-
-    <p>... on the {{day}} {{month}} {{year}}</p>
-    {{view Ember.TextField type="date" valueBinding="swimDate" class="input-block-level"}}
-    
-    <button class="btn btn-large btn-primary" {{action 'logSwim'}}>Log Swim</button>
+    <section id="new-swim-form">
+        <h2 class="form-signin-heading">Log a swim</h2>
+        <p {{bindAttr class="messageClass"}}>{{message}}</p>
+        <p>you swam {{lengthSwum}} meters ...</p>
+        {{view Ember.TextField type="number" min="0" valueBinding="lengthSwum" class="input-block-level" placeholder="enter total length swum in meters"}}
+        <p>... in {{timeTaken}} minutes.</p>
+        {{view Ember.TextField type="number" min="0" valueBinding="timeTaken" class="input-block-level" placeholder="enter time in minutes"}}
+        <p>... on the {{day}} {{month}} {{year}}</p>
+        {{view Ember.TextField type="date" valueBinding="swimDate" class="input-block-level"}}
+        <button class="btn btn-large btn-primary" {{action 'logSwim'}}>Log Swim</button>
+    </section>
 
 </form>
+
+<section id="logged-swims-list">
+    <h2>My swims</h2>
+    <ul>
+    {{#each swims}}
+        <li>You swum {{length}} meters in {{time}} on {{date date}}</li>
+    {{/each}}
+    </ul>
+</section>

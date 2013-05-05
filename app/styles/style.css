@@ -30,4 +30,7 @@ body {
     margin-bottom: 15px;
     padding: 7px 9px;
 }
-
+#logged-swims-list {
+    width:340px;
+    margin: 0 auto;
+}
