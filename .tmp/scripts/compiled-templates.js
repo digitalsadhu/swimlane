@@ -103,7 +103,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   data.buffer.push("<form class=\"form-signin\">\n    \n    <h2 class=\"form-signin-heading\">Please sign in</h2>\n\n    <p class=\"text-error\">");
   hashTypes = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "errorMessage", {hash:{},contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
-  data.buffer.push("</p>\n\n    ");
+  data.buffer.push("</p>\n\n    <!-- ");
   hashTypes = {'valueBinding': "STRING",'type': "STRING",'class': "STRING",'placeholder': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("username"),
@@ -119,10 +119,10 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
     'class': ("input-block-level"),
     'placeholder': ("Password")
   },contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
-  data.buffer.push("\n    <!-- <label class=\"checkbox\">\n        <input type=\"checkbox\" value=\"remember-me\"> Remember me\n    </label> -->\n    <button class=\"btn btn-large btn-primary\" ");
+  data.buffer.push(" -->\n    <!-- <label class=\"checkbox\">\n        <input type=\"checkbox\" value=\"remember-me\"> Remember me\n    </label> -->\n    <button class=\"btn btn-large btn-primary\" ");
   hashTypes = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "login", {hash:{},contexts:[depth0],types:["STRING"],hashTypes:hashTypes,data:data})));
-  data.buffer.push(">Sign in</button>\n\n</form>\n");
+  data.buffer.push(">Facebook sign in</button>\n\n</form>\n");
   return buffer;
   
 });

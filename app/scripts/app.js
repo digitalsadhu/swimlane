@@ -2,116 +2,45 @@
 
 (function (window) {
 
-    var user = 'admin';
-    var pass = 'Swim33lotsoflanes!!!';
+    var App = window.App = Ember.Application.create({
+        Router: Ember.Router.extend({
+            transitionToIndex: function () {
+                this.transitionTo('index')
+            }
+        })
+    });
+    //block the app from doing anything until a logged in
+    //check has been made
+    App.deferReadiness();
+
     var loggedIn = false;
+
+    function loginCallback(error, user) {
+        
+        //allow the app to initialize
+        App.advanceReadiness();
+
+        if (!error && user) {
+            loggedIn = true;
+
+            //annoying hack, refreshes the browser url, now that
+            //we have been through auth, loggedIn will be true
+            window.location = '/#/';
+        }
+        
+    }
 
     var dataSource = new Firebase('https://swimlane.firebaseIO.com/swims');
 
-    var App = window.App = Ember.Application.create();
-
-    // App.Store = DS.Store.extend({
-    //     revision: 12,
-    //     adapter: 'App.mongolabAdapter'
-    // });
-
-    // App.mongolabAdapter = DS.RESTAdapter.extend({
-    //     buildURL: function (record, suffix) {
-    //         var url = [this.url];
-
-    //         Ember.assert("Namespace URL (" + this.namespace + ") must not start with slash", !this.namespace || this.namespace.toString().charAt(0) !== "/");
-    //         Ember.assert("Record URL (" + record + ") must not start with slash", !record || record.toString().charAt(0) !== "/");
-    //         Ember.assert("URL suffix (" + suffix + ") must not start with slash", !suffix || suffix.toString().charAt(0) !== "/");
-
-    //         if (!Ember.isNone(this.namespace)) {
-    //           url.push(this.namespace);
-    //         }
-
-    //         url.push(this.pluralize(record));
-    //         if (suffix !== undefined) {
-    //           url.push(suffix);
-    //         }
-
-    //         return url.join("/") + '?apiKey=n_Dyj2qOmOcCaATI9zUlWDZpXFY8eaZO';
-    //     },
-    //     serializer: DS.RESTSerializer.extend({
-    //         extractMany: function(loader, json, type, records) {
-                
-    //             var root = this.rootForType(type);
-    //             var roots = this.pluralize(root);
-
-    //             // console.log(roots);
-    //             // console.log(json);
-    //             // console.log(json.entries);
-
-
-    //             //custom transform returned api data
-    //             var data = [];
-    //             var i;
-    //             for (i in json) {
-    //                 if (json.hasOwnProperty(i)) {
-    //                     json[i][root].id = json[i]._id.$oid;
-    //                     data.push(json[i][root]);
-    //                 }
-    //             }
-    //             json = {};
-    //             json[root] = data;
-    //             // console.log(json);
-    //             //////////////////////////////
-
-    //             formattedJson = {};
-    //             // formattedJson[roots] = json.entries;
-                
-    //             formattedJson[roots] = json[root];
-
-    //             // console.log(formattedJson);
-
-    //             delete formattedJson.pagination;
-    //             this._super(loader, formattedJson, type, records);
-    //         },
-    //         extract: function (loader, json, type, record) {
-
-    //             var root = this.rootForType(type);
-                
-    //             //custom transform returned api data
-    //             json[root].id = json._id.$oid;
-    //             var jsonFixed = {};
-    //             jsonFixed[root] = json[root];
-    //             json = jsonFixed;
-    //             //////////////////////////////
-
-    //             this.sideload(loader, type, json, root);
-    //             this.extractMeta(loader, type, json);
-
-    //             if (json[root]) {
-    //                 if (record) { loader.updateId(record, json[root]); }
-    //                 this.extractRecordRepresentation(loader, type, json[root]);
-    //             }
-    //         }
-    //     })
-    // });
-
-    // App.mongolabAdapter.reopen({
-    //     'url': 'https://api.mongolab.com',
-    //     'namespace': 'api/1/databases/sadhuswimlane/collections'
-    // });
-
+    var authClient = new FirebaseAuthClient(dataSource, loginCallback);
 
     App.LoginController = Ember.Controller.extend({
-        
-        //bound properties
-        'username': '',
-        'password': '',
-        'errorMessage': '',
 
         //triggered when the user clicks the login button
         'login': function () {
-            if (this.get('username') === user && this.get('password') === pass) {
-                loggedIn = true;
-                this.transitionToRoute('index');
-            } else {
-                this.set('errorMessage', 'Incorrect username or password');
-            }
+
+            authClient.login('facebook');
+
         }
 
     });
@@ -122,17 +51,11 @@
 
     App.IndexRoute = Ember.Route.extend({
         redirect: function() {
-            if (loggedIn === false) {
-               // this.transitionTo('login');
+            if (loggedIn === false) { 
+                this.transitionTo('login');
             }
         }
     });
-
-    // App.Swim = DS.Model.extend({
-    //     'length': DS.attr('string'),
-    //     'time': DS.attr('string'),
-    //     'date': DS.attr('date')
-    // });
 
     App.Swim = Ember.Object.extend({});
 
