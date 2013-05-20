@@ -34,3 +34,11 @@ body {
     width:340px;
     margin: 0 auto;
 }
+#messages {
+    position: absolute;
+    top: -20px;
+    left: 0;
+}
+#swim-form-wrapper {
+    position: relative;
+}
